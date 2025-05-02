@@ -1,89 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>FLAMES Calculator</title>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(to right, #ff9a9e, #fad0c4);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            text-align: center;
-        }
-        h1 {
-            font-family: 'Pacifico', cursive;
-            color: #fff;
-            font-size: 3em;
-            animation: slideIn 1s ease-out;
-        }
-        form {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 20px 30px;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.2);
-            animation: fadeIn 1s ease-in-out;
-        }
-        input {
-            padding: 10px;
-            width: 200px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            margin: 10px;
-            font-size: 1em;
-        }
-        button {
-            padding: 10px 20px;
-            background: #ff758c;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 1em;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        button:hover {
-            transform: scale(1.1);
-        }
-        .result {
-            margin-top: 20px;
-            font-size: 1.5em;
-            color: #fff;
-            animation: bounce 1s infinite alternate;
-        }
+  <meta charset="UTF-8" />
+  <title>FLAMES Calculator</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(to right, #ff9a9e, #fad0c4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+      overflow: hidden;
+    }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
+    h1 {
+      font-family: "Pacifico", cursive;
+      color: #fff;
+      font-size: 3em;
+      animation: slideIn 1s ease-out;
+    }
 
-        @keyframes slideIn {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
+    form {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 20px 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 1s ease-in-out;
+      z-index: 2;
+    }
 
-        @keyframes bounce {
-            from { transform: translateY(0); }
-            to { transform: translateY(-10px); }
-        }
-    </style>
+    input {
+      padding: 10px;
+      width: 200px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      margin: 10px;
+      font-size: 1em;
+    }
+
+    button {
+      padding: 10px 20px;
+      background: #ff758c;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+    }
+
+    .result-container {
+      margin-top: 30px;
+      animation: fadeIn 1.2s ease-out;
+      z-index: 2;
+    }
+
+    .result-text {
+      font-size: 1.8em;
+      color: white;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid white;
+      width: 0;
+      margin: 0 auto;
+      animation: typing 2.5s steps(40, end) forwards;
+    }
+
+    .glow-text {
+      color: #fff;
+      text-shadow: 0 0 5px #ff4da6, 0 0 10px #ff4da6, 0 0 20px #ff4da6,
+        0 0 40px #ff0080;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes typing {
+      from {
+        width: 0;
+      }
+      to {
+        width: 100%;
+      }
+    }
+
+    /* Heart and petals animation */
+    .floating {
+      position: fixed;
+      bottom: -50px;
+      animation: floatUp linear infinite;
+      z-index: 1;
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-120vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
 </head>
 <body>
-    <h1>FLAMES Game 💖</h1>
-    <form method="POST">
-        <input type="text" name="name1" placeholder="Your Name" required>
-        <input type="text" name="name2" placeholder="Their Name" required>
-        <br>
-        <button type="submit">Calculate</button>
-    </form>
+  <h1>FLAMES Game 💖</h1>
+  <form method="POST">
+    <input type="text" name="name1" placeholder="Your Name" required />
+    <input type="text" name="name2" placeholder="Their Name" required />
+    <br />
+    <button type="submit">Calculate</button>
+  </form>
 
-    {% if result %}
-    <div class="result">Relationship: <strong>{{ result }}</strong></div>
-    {% endif %}
+  {% if result %}
+  <div class="result-container">
+    <p class="result-text">Relationship: <span class="glow-text">{{ result }}</span></p>
+  </div>
+  {% endif %}
+
+  <!-- Floating hearts and rose leaves -->
+  <script>
+    const emojis = ["💖", "🌹", "💘", "💕", "❤️"];
+    const count = 20;
+
+    for (let i = 0; i < count; i++) {
+      const span = document.createElement("span");
+      span.classList.add("floating");
+      span.style.left = Math.random() * 100 + "vw";
+      span.style.animationDuration = 5 + Math.random() * 5 + "s";
+      span.style.fontSize = 20 + Math.random() * 20 + "px";
+      span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      document.body.appendChild(span);
+    }
+  </script>
 </body>
 </html>
