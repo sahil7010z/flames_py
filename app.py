@@ -1,5 +1,5 @@
-# app.py
 from flask import Flask, render_template, request
+import os
 
 app = Flask(__name__)
 
@@ -20,7 +20,7 @@ def flames_result(count):
     while len(flames) > 1:
         split = (count % len(flames)) - 1
         if split >= 0:
-            flames = flames[split+1:] + flames[:split]
+            flames = flames[split + 1:] + flames[:split]
         else:
             flames.pop()
     return flames[0]
@@ -36,4 +36,5 @@ def index():
     return render_template("index.html", result=result)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(debug=False, host="0.0.0.0", port=port)
